@@ -1,0 +1,12 @@
+venv
+staticfiles
+*.log
+*.pot
+*.pyc
+.DS_Store
+curiositymachine/local.py
+curiositymachine/static/node_modules
+.coverage
+*.db
+db.sqlite3
+heroku.env

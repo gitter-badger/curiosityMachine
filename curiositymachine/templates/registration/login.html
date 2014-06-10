@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+    <h1>Login.</h1>
+
+  <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
+    
+      {% include "registration/_login_form.html" %}
+    
+    
+      <p> <input type="submit" value="login" class="btn btn-primary btn-lg" /> <small><a href="{% url "password_reset_recover" %}">Forgot your password?</a></small></p>
+      
+      {% if next %}
+          <input type="hidden" name="next" value="{{ next }}" />
+      {% else %}
+          <input type="hidden" name="next" value="/home/" />
+      {% endif %}
+    
+  </form>
+{% endblock %}

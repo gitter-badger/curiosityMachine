@@ -1,0 +1,32 @@
+{% load unread_count %}
+
+<li>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        {% if challenge in request.user.challenges.all %}
+          {% if progress|unread_count:request.user %} <span title="{{progress|unread_count:request.user}} unread messages" class="unread">{{progress|unread_count:request.user}}</span>{% endif %}
+          <a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=request.user.username %}">{{ challenge.name }}</a>
+        {% else %}
+          <a href="{% url 'challenges:challenge' challenge.id %}">{{ challenge.name }}</a>
+        {% endif %}
+      </h3>
+    </div>
+    <div class="image-container">
+      {% if challenge in request.user.challenges.all %}
+        <a href="{% url 'challenges:challenge_progress' challenge_id=challenge.id username=request.user.username %}">
+      {% else %}
+        <a href="{% url 'challenges:challenge' challenge.id %}">
+      {% endif %}
+      {% if challenge.image %}
+        <img src="{{ challenge.image.url }}">
+      {% elif challenge.video.encodings_generated %}
+        {{ challenge.video.output_videos.all.0.thumbnail }}
+      {% endif %}
+      </a>
+    </div>
+    <div class="panel-body">
+      {{ challenge.description }}
+    </div>
+  </div>
+</li>
