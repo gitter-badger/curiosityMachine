@@ -2,10 +2,13 @@
 {% block title %}{{ challenge.name }}{% endblock %}
 
 {% block content %}
+
 <div class="challenge-details">
   <h1>{{ challenge.name }}</h1>
+  <div class="details h2">
+    <p>{{ challenge.description }}</p>
+  </div>
   {% include "_challenge_nav.html" with stage="inspiration" %}
-
 <div class="challenge-content">
   {% include '_challenge_details.html' %}
   {% if request.user.is_authenticated and request.user.profile.is_student %}
