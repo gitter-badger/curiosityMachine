@@ -1,5 +1,6 @@
 #framework
 -e git://github.com/django/django@1.7b1#egg=Django
+#https://www.djangoproject.com/download/1.7.b4/tarball/
 
 #db driver
 psycopg2==2.5.2
