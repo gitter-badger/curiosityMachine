@@ -21,7 +21,7 @@ class ProfileFormBase(forms.Form):
                                        widget=forms.PasswordInput(render_value=False), label="Retype password")
     birthday = forms.DateField(required=True, widget=SelectDateWidget(years=BIRTH_YEAR_CHOICES), label="Date of Birth")
     city = forms.CharField(required=True, label="City")
-    picture_filepicker_url = FilePickerURLField(label="Photo", mimetypes="image/*", openTo='WEBCAM', services='WEBCAM,COMPUTER', required=False)
+    picture_filepicker_url = FilePickerURLField(label="Photo", mimetypes="image/*", openTo='WEBCAM', services='WEBCAM,COMPUTER', required=True)
 
     def clean(self):
         cleaned_data = super(ProfileFormBase, self).clean()
