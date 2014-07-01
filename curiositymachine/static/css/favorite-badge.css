@@ -1,0 +1,48 @@
+.favorite-badge
+{
+	position: absolute;
+	color: #fff;
+	top: 0px;
+	right: 10px;
+	z-index: 100;
+}
+
+.favorite-badge .favorite-badge-content
+{
+    background-color: #fe0f0f;
+    width: 42px;
+    height: 38px;
+    font-size: 12px;
+    line-height: 1.2em;
+    font-weight: bold;
+    text-align: center;
+    padding: 8px;
+}
+
+.favorite-badge .favorite-badge-arrow
+{
+    border-left: 21px solid transparent;
+    border-right: 21px solid transparent;
+    border-top: 9px solid #fe0f0f;
+}
+
+.favorite-badge.favorite-badge-large
+{
+    width: 56px;
+}
+
+.favorite-badge.favorite-badge-large .favorite-badge-content
+{
+    width: 56px;
+    height: 50px;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 1.1em;
+}
+
+.favorite-badge.favorite-badge-large .favorite-badge-arrow
+{
+    border-left: 28px solid transparent;
+    border-right: 28px solid transparent;
+    border-top: 10px solid #fe0f0f;
+}

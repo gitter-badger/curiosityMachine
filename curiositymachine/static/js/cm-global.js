@@ -1,5 +1,13 @@
 "use strict";
 
+// Initializes console.log. Logging statements should not be present in
+// production code, but this will keep the app running in the browsers that lack
+// a console if console.log is called(namely, IE).
+if(!window.console) window.console = {};
+if(!$.isFunction(window.console.log)) window.console.log = $.noop;
+if(!$.isFunction(window.console.debug)) window.console.debug = $.noop;
+if(!$.isFunction(window.console.error)) window.console.error = $.noop;
+
 var CM = {};
 
 CM.Navigation = {

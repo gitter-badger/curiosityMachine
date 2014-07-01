@@ -39,6 +39,7 @@ class Challenge(models.Model):
     learn_more = models.TextField(help_text="HTML, shown in the guide")
     materials_list = models.TextField(help_text="HTML")
     students = models.ManyToManyField(User, through='Progress', through_fields=('challenge', 'student'), null=True, related_name="challenges")
+    favorited = models.ManyToManyField(User, through='Favorite', through_fields=('challenge', 'student'), null=True, related_name="favorite_challenges")
     theme = models.ForeignKey(Theme, null=True, blank=True, on_delete=models.SET_NULL)
     video = models.ForeignKey(Video, null=True, blank=True, on_delete=models.SET_NULL)
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL)
@@ -98,3 +99,18 @@ class Progress(models.Model):
 
     def __str__(self):
         return "Progress: id={}, challenge_id={}, student_id={}".format(self.id, self.challenge_id, self.student_id)
+
+class Favorite(models.Model):
+    challenge = models.ForeignKey(Challenge)
+    student = models.ForeignKey(User, related_name='favorites')
+
+    class Meta:
+        verbose_name_plural = "Favorites"
+
+    def save(self, *args, **kwargs):
+        if Favorite.objects.filter(challenge=self.challenge, student=self.student).exclude(id=self.id).exists():
+            raise ValidationError("This challenge is already on your favorites")
+        if self.student.profile.is_mentor:
+            raise ValidationError("Mentors can not favorite a challenge")
+        else:
+            super(Favorite, self).save(*args, **kwargs)
