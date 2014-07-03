@@ -5,9 +5,8 @@ from django.contrib.auth.models import User
 from django.forms.extras.widgets import SelectDateWidget
 from django.conf import settings
 from datetime import datetime
-from curiositymachine.forms import FilePickerURLField
+from curiositymachine.forms import FilePickerURLField, FilePickerDragDropField
 from datetime import date
-from captcha.fields import ReCaptchaField
 
 import re
 
@@ -21,7 +20,7 @@ class ProfileFormBase(forms.Form):
                                        widget=forms.PasswordInput(render_value=False), label="Retype password")
     birthday = forms.DateField(required=True, widget=SelectDateWidget(years=BIRTH_YEAR_CHOICES), label="Date of Birth")
     city = forms.CharField(required=True, label="City")
-    picture_filepicker_url = FilePickerURLField(label="Photo", mimetypes="image/*", openTo='WEBCAM', services='WEBCAM,COMPUTER', required=False)
+    picture_filepicker_url = FilePickerDragDropField(label="Photo", mimetypes="image/*", openTo='WEBCAM', services='WEBCAM,COMPUTER', required=False)
 
     def clean(self):
         cleaned_data = super(ProfileFormBase, self).clean()
@@ -62,12 +61,9 @@ class JoinForm(ProfileFormBase):
     username = forms.CharField(max_length=30,required=True, label="Username")
     parent_first_name = forms.CharField(required=False, label="First Name")
     parent_last_name = forms.CharField(required=False, label="Last Name")
-    captcha = ReCaptchaField(attrs={'theme' : 'clean'})
 
     def __init__(self, request=None, *args, **kwargs):
         super(JoinForm, self).__init__(*args, **kwargs)
-        if not settings.RECAPTCHA_PRIVATE_KEY or not settings.RECAPTCHA_PUBLIC_KEY:
-            self.fields.pop('captcha')
         self._request = request
 
     def clean(self):

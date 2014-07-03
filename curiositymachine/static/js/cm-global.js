@@ -10,7 +10,7 @@ CM.Navigation = {
 
 CM.userError = function(message) {
   $('#message-bar').removeClass().addClass('error');
-  $('#message-bar').addClass('active').find('.text').text(message);
+  $('#message-bar').addClass('active').find('.text').append(message);
   var timer = setTimeout(function() {
     $('#message-bar').removeClass('active');
   }, 3000)
@@ -18,7 +18,7 @@ CM.userError = function(message) {
 
 CM.userSuccess = function(message) {
   $('#message-bar').removeClass().addClass('success');
-  $('#message-bar').addClass('active').find('.text').text(message);
+  $('#message-bar').addClass('active').find('.text').append(message);
   var timer = setTimeout(function() {
     $('#message-bar').removeClass('active');
   }, 3000);
@@ -47,9 +47,11 @@ CM.Profile = {
     if (age < 13) {
       $('.parent-info').show();
       $('.student-column').removeClass('col-md-6').addClass('col-md-4');
+      $("label[for='id_email']").text('Parent Email:');
     } else {
       $('.parent-info').hide();
       $('.student-column').removeClass('col-md-4').addClass('col-md-6');
+      $("label[for='id_email']").text('Email:');
     }
   },
 }
@@ -184,6 +186,8 @@ if (CM.Navigation.$navTop) {
 //======= end bootstrappy stuff
 
 
+  //===== carousel setup
+
   $(".panel-carousel").owlCarousel({
     items : 4,
     itemsCustom : false,
@@ -208,43 +212,34 @@ if (CM.Navigation.$navTop) {
     itemsScaleUp : false
   });
 
-//========cahllenge nav -=======
-  // $('.challenge-nav.primary li').not(':first-child').on('click', function() {
-  //   var $self = $(this);
-  //   var position = $self.position();
-  //   var width = $self.width();
-  //   var color = $('button', this).css('color');
+  //====== end carousel setup
 
-  //   $('.challenge-nav.clipper').css('clip', 'rect(0px,' +(position.left + width) + 'px,100px,' + position.left +'px)');
-  //   $('.challenge-nav.clipper .cursor').css({
-  //     'left' : (position.left - 2) + 'px',
-  //     'width' : (width + 4) + 'px',
-  //     'background-color' : color
-  //   });
-  //   $('.challenge-nav.primary .cursor').css({
-  //     'left' : (position.left - 2) + 'px',
-  //     'width' : (width + 4) + 'px'
-  //   });
-  //   $('.challenge-nav.primary .cursor .top').css({'border-color' : 'transparent ' + color + ' transparent transparent'});
-  //   $('.challenge-nav.primary .cursor .bottom').css({'border-color' : 'transparent transparent ' + color + ' transparent'});
-  //   //$('.challenge-nav.primary .cursor .front').css({'border-color' : ('transparent transparent transparent ' + color) });
+  $('.image-gallery .image-container').on('click', function() {
+    var image = $(this).clone();
+    var modalContent = $('#galleryModal .modal-content');
+    var header = '<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h2>&nbsp;</h2></div>';
+    console.log(header);
+    modalContent.empty();
+    
+    modalContent.append(header);
+    modalContent.append(image);
+    image.wrap('<div class="modal-body"></div>');
+    
+  });
+
+  //this shows or hides the button on challenge details page depending on if the video is playing
+
+  $('.challenge-details-hero .mejs-player').on('pause', function() {
+      $('.challenge-details .btn-primary').css('position', 'relative').css('z-index', 2);
+      $('.challenge-details-hero .details').show();
+  });
+
+  $('.challenge-details-hero .mejs-player').on('play', function() {
+      $('.challenge-details .btn-primary').css('position', 'static').css('z-index', 0);
+      $('.challenge-details-hero .details').hide();
+  });
   
-  //   $('.challenge-nav.clipper .btn').textillate({
-  //       autoStart: false,
-  //       'in': {
-  //         effect : 'wobble'
-  //       }
-  //     }).textillate('start');
-  // });
 
-  // $('.challenge-nav.clipper .cursor').on('transitionend webkitTransitionEnd', function(e){
-      
-  // });
-  // //start starting position...
-  // $('.challenge-nav.primary li').eq(1).trigger('click');
-//==== end challenge nav
-
-
-});
+}); //end dom ready
 
 

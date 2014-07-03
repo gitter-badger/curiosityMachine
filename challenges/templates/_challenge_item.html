@@ -1,4 +1,5 @@
 {% load unread_count %}
+{% load resized %}
 
 <li>
   <div class="panel panel-default">
@@ -19,14 +20,16 @@
         <a href="{% url 'challenges:challenge' challenge.id %}">
       {% endif %}
       {% if challenge.image %}
-        <img src="{{ challenge.image.url }}">
+        <img src="{% resized challenge.image.url width=300 height=200 crop='fit' %}">
       {% elif challenge.video.encodings_generated %}
         {{ challenge.video.output_videos.all.0.thumbnail }}
       {% endif %}
       </a>
     </div>
     <div class="panel-body">
-      {{ challenge.description }}
+      <div class="description">
+        {{ challenge.description | truncatechars:200 }}
+      </div>
     </div>
   </div>
 </li>
