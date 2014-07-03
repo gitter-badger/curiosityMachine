@@ -11,14 +11,13 @@
           <a href="{% url 'challenges:challenge' challenge.id %}">{{ challenge.name }}</a>
         {% endif %}
         <span class="favorite-badge">
-          <span class="favorite-badge-content pull-right alert-success">
+          <span class="favorite-badge-content">
             <a href="{% url 'challenges:set_favorite' challenge.id 'favorite' %}" data-set-url="{% url 'challenges:set_favorite' challenge.id 'favorite' %}" data-clear-url="{% url 'challenges:set_favorite' challenge.id 'unfavorite' %}"  data-challenge-id="{{ challenge.id }}" class="favorite">
               <span class="glyphicon glyphicon-star-empty"></span>
             </a>
-            <span class="favorite-badge-arrow">
           </span>
+          <span class="favorite-badge-arrow">
           </span>
-          
         </span>
       </h3>
     </div>
