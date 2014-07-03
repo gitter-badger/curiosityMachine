@@ -32,7 +32,8 @@ ADMINS = tuple([("Curiosity Machine Admin", email) for email in os.getenv("ADMIN
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = SECRET_KEY = os.getenv("SECRET_KEY", '0!)smlfbaj=4w7a=@#%5_5h*+n38m2c165xpbn9^#z_a%kgwrs')
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", '').split(',') if os.getenv("ALLOWED_HOSTS") else []
+ALLOWED_HOSTS = ['localhost', 'aqueous-spire-8636.herokuapp.com']
+#os.getenv("ALLOWED_HOSTS", '').split(',') if os.getenv("ALLOWED_HOSTS") else []
 
 # SSL settings
 
