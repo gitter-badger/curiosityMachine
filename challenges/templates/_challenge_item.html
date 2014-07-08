@@ -10,6 +10,7 @@
         {% else %}
           <a href="{% url 'challenges:challenge' challenge.id %}">{{ challenge.name }}</a>
         {% endif %}
+        {% if request.user.is_authenticated %}
         <span class="favorite-badge">
           <span class="favorite-badge-content">
             <a href="{% url 'challenges:set_favorite' challenge.id 'favorite' %}" data-set-url="{% url 'challenges:set_favorite' challenge.id 'favorite' %}" data-clear-url="{% url 'challenges:set_favorite' challenge.id 'unfavorite' %}"  data-challenge-id="{{ challenge.id }}" class="favorite">
@@ -19,6 +20,7 @@
           <span class="favorite-badge-arrow">
           </span>
         </span>
+        {% endif %}
       </h3>
     </div>
     <div class="image-container">
