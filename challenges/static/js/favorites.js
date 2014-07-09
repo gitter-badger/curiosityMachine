@@ -16,28 +16,35 @@ CM.Favorite.Handlers =  {
 		var me = e.data.me;
 		var target = $(e.currentTarget);
 		if ( target.hasClass("favorited") ) {
-			$.post(target.attr('data-clear-url')).done( function () { 
-				me.unfavorited(target);
+			$.post(target.attr('data-clear-url')).done( function (result) {
+				if (result.success) {
+					me.unfavorited(target);
+				}
 			});
 		}
 		else {
-			$.post(target.attr('data-set-url')).done( function () { 
-				console.log(me);
-				me.favorited(target);
+			$.post(target.attr('data-set-url')).done( function (result) {
+				if (result.success) {
+					me.favorited(target);
+				}
 			});
 		}
 	},
 
 	unfavorited: function (target) {
-		var icon = target.find('span');
+		// var icon = target.find('span.icon');
+		target.children().removeClass('favorite-badge-content-active');
+		target.children().addClass('favorite-badge-content');
 		target.removeClass("favorited");
-		icon.removeClass("glyphicon-star").addClass("glyphicon-star-empty");
+		// icon.removeClass("glyphicon-minus").addClass("glyphicon-plus");
 	},
 
 	favorited: function (target) {
-		var icon = target.find('span');
+		// var icon = target.find('span.icon');
+		target.children().addClass('favorite-badge-content-active');
+		target.children().removeClass('favorite-badge-content');
 		target.addClass("favorited");
-		icon.addClass("glyphicon-star").removeClass("glyphicon-star-empty");
+		// icon.removeClass("glyphicon-plus").addClass("glyphicon-minus");
 	}
 };
 

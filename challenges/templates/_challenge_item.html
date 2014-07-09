@@ -1,4 +1,5 @@
 {% load unread_count %}
+{% load is_favorite %}
 
 <li>
   <div class="panel panel-default">
@@ -12,13 +13,10 @@
         {% endif %}
         {% if request.user.is_authenticated %}
         <span class="favorite-badge">
-          <span class="favorite-badge-content">
-            <a href="{% url 'challenges:set_favorite' challenge.id 'favorite' %}" data-set-url="{% url 'challenges:set_favorite' challenge.id 'favorite' %}" data-clear-url="{% url 'challenges:set_favorite' challenge.id 'unfavorite' %}"  data-challenge-id="{{ challenge.id }}" class="favorite">
-              <span class="glyphicon glyphicon-star-empty"></span>
-            </a>
-          </span>
-          <span class="favorite-badge-arrow">
-          </span>
+          <a href="{% url 'challenges:set_favorite' challenge.id 'favorite' %}" data-set-url="{% url 'challenges:set_favorite' challenge.id 'favorite' %}" data-clear-url="{% url 'challenges:set_favorite' challenge.id 'unfavorite' %}"  data-challenge-id="{{ challenge.id }}" class="favorite{% if challenge|is_favorite:request.user %} favorited{% endif %}">
+            <span class="favorite-badge-content{% if challenge|is_favorite:request.user %}-active{% endif %}">
+            </span>
+          </a>
         </span>
         {% endif %}
       </h3>

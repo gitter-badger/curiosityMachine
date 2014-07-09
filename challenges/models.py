@@ -50,6 +50,9 @@ class Challenge(models.Model):
     reflect_subheader = models.TextField(help_text="One line of plain text, shown below the reflect stage header")
     reflect_questions = models.ManyToManyField(Question, null=True)
 
+    def is_favorite(self, student):
+        return Favorite.objects.filter(challenge=self, student=student).exists()
+
     def __str__(self):
         return "Challenge: id={}, name={}".format(self.id, self.name)
 
