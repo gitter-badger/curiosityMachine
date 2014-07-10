@@ -33,16 +33,16 @@ CM.Favorite.Handlers =  {
 
 	unfavorited: function (target) {
 		// var icon = target.find('span.icon');
-		target.children().removeClass('favorite-badge-content-active');
-		target.children().addClass('favorite-badge-content');
+		target.find('.favorite-badge-content').removeClass('active');
+		target.find('.favorite-badge-icon-plus').removeClass('hide');
 		target.removeClass("favorited");
 		// icon.removeClass("glyphicon-minus").addClass("glyphicon-plus");
 	},
 
 	favorited: function (target) {
 		// var icon = target.find('span.icon');
-		target.children().addClass('favorite-badge-content-active');
-		target.children().removeClass('favorite-badge-content');
+		target.find('.favorite-badge-content').addClass('active');
+		target.find('.favorite-badge-icon-plus').addClass('hide');
 		target.addClass("favorited");
 		// icon.removeClass("glyphicon-plus").addClass("glyphicon-minus");
 	}
