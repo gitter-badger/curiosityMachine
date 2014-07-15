@@ -32,7 +32,18 @@ ADMINS = tuple([("Curiosity Machine Admin", email) for email in os.getenv("ADMIN
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = SECRET_KEY = os.getenv("SECRET_KEY", '0!)smlfbaj=4w7a=@#%5_5h*+n38m2c165xpbn9^#z_a%kgwrs')
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", '').split(',') if os.getenv("ALLOWED_HOSTS") else []
+ALLOWED_HOSTS = ['localhost', 'aqueous-spire-8636.herokuapp.com']
+#os.getenv("ALLOWED_HOSTS", '').split(',') if os.getenv("ALLOWED_HOSTS") else []
+
+# SSL settings
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SESSION_COOKIE_SECURE = CSRF_COOKIE_SECURE = process_false_string(os.getenv("SSL_ONLY", False))
+SSLIFY_DISABLE = not process_false_string(os.getenv("SSL_ONLY", False))
+
+# Canonical domain -- if this is set, all requests not to this domain will be forwarded to this domain
+# this should be a bare domain -- no scheme or route! For instance, www.example.com and not http://www.example.com
+CANONICAL_DOMAIN = os.getenv("CANONICAL_DOMAIN", None)
 
 # Application definition
 
@@ -55,10 +66,11 @@ INSTALLED_APPS = (
     'django_summernote',
     'django_bleach',
     'training',
-    'captcha'
 )
 
 MIDDLEWARE_CLASSES = (
+    'curiositymachine.middleware.CanonicalDomainMiddleware', # this MUST come before the SSLify middleware or else non-canonical domains that do not have SSL endpoints will not work!
+    'sslify.middleware.SSLifyMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -127,9 +139,6 @@ ZENCODER_API_KEY = os.environ.get("ZENCODER_API_KEY", "")
 S3_URL_BASE = "http://s3.amazonaws.com"
 
 MEDIA_URL = S3_URL_BASE + '/' + AWS_STORAGE_BUCKET_NAME + '/'
-
-RECAPTCHA_PUBLIC_KEY = os.getenv("RECAPTCHA_PUBLIC_KEY", '')
-RECAPTCHA_PRIVATE_KEY = os.getenv("RECAPTCHA_PRIVATE_KEY", '')
 
 #job queues
 RQ_QUEUES = {

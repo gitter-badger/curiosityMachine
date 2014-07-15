@@ -1,9 +1,8 @@
 #framework
--e git://github.com/django/django@1.7b1#egg=Django
-#https://www.djangoproject.com/download/1.7.b4/tarball/
+#-e git://github.com/django/django@1.7b1#egg=Django
 
 #db driver
-psycopg2==2.5.2
+#psycopg2==2.5.2
 
 #Heroku DATABASE_URL env variable parsing
 dj-database-url==0.2.2
@@ -44,7 +43,7 @@ django-password-reset==0.7
 cloudinary==1.0.17
 
 #WYSIWYG editor
-django-summernote==0.5.8
+django-summernote==0.5.12
 
 #scrubbing system
 django-bleach==0.2.0
@@ -54,3 +53,6 @@ newrelic
 
 #captcha
 django-recaptcha==1.0
+
+#ssl only
+django-sslify>=0.2

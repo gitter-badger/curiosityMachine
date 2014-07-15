@@ -16,7 +16,7 @@
 
 .nav-menu {
   margin: 0;
-  padding: 0px;
+  padding: 10px 0px 0px 0px;
   position: fixed;
   z-index: 1;
   top: 0px;
@@ -78,7 +78,7 @@
 
 .nav-wrapper {
   position: relative;
-  margin: 0 -(@grid-gutter-width / 2);
+  margin: 0 -(@grid-side-gutters);
   z-index: 1;
   margin-bottom: -100px;
   &.sticky {
@@ -87,6 +87,7 @@
       left: 0px;
       width: 100%;
       margin: 0;
+      z-index: 2;
       .challenge-nav.primary {
         max-width: @container-lg;
         margin: 0 auto;
@@ -106,6 +107,7 @@
   background: @bg-color;
   &.primary {
     box-shadow: 3px 3px 15px 0px rgba(0,0,0, .2);
+    overflow: hidden;
   }
   &:before { //stripe
     content: '';
@@ -113,12 +115,13 @@
     width: 100%;
     position: absolute;
     top: 47px;
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.66, rgba(0,0,0,.2) 66%), color-stop(.34, transparent), to(transparent));
-    background-image: -moz-linear-gradient(90deg, rgba(0,0,0,.2) 66%, transparent 34%);
-    background-image: -o-linear-gradient(90deg, rgba(0,0,0,.2) 66%, transparent 34%);
-    background-image: linear-gradient(90deg, rgba(0,0,0,.2) 66%, transparent 34%);
-    background-size: 12px 12px;
-    z-index: 2;
+    // background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.66, rgba(0,0,0,.2) 66%), color-stop(.34, transparent), to(transparent));
+    // background-image: -moz-linear-gradient(90deg, rgba(0,0,0,.2) 66%, transparent 34%);
+    // background-image: -o-linear-gradient(90deg, rgba(0,0,0,.2) 66%, transparent 34%);
+    // background-image: linear-gradient(90deg, rgba(0,0,0,.2) 66%, transparent 34%);
+    // background-size: 12px 12px;
+    background: url('../images/nav-stripe.gif') top left repeat-x;
+    z-index: 1;
     pointer-events: none;
     cursor: pointer;
     margin-left: 15%;
@@ -139,11 +142,12 @@
         top: 47px;
         z-index: 2;
         pointer-events: none;
-        background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.66, rgba(255, 255, 255, 1) 66%), color-stop(.34, transparent), to(transparent));
-        background-image: -moz-linear-gradient(90deg, rgba(255, 255, 255, 1) 66%, transparent 34%);
-        background-image: -o-linear-gradient(90deg, rgba(255, 255, 255, 1) 66%, transparent 34%);
-        background-image: linear-gradient(90deg, rgba(255, 255, 255, 1) 66%, transparent 34%);
-        background-size: 12px 12px;
+        // background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.66, rgba(255, 255, 255, 1) 66%), color-stop(.34, transparent), to(transparent));
+        // background-image: -moz-linear-gradient(90deg, rgba(255, 255, 255, 1) 66%, transparent 34%);
+        // background-image: -o-linear-gradient(90deg, rgba(255, 255, 255, 1) 66%, transparent 34%);
+        // background-image: linear-gradient(90deg, rgba(255, 255, 255, 1) 66%, transparent 34%);
+        // background-size: 12px 12px;
+        background: url('../images/nav-stripe-selected.gif') top left repeat-x;
       }
     }
     a {
@@ -272,10 +276,10 @@
         top: -24px;
         background: @orange;
       }
-      &:nth-child(2) { //test
+      &.test { //test
         left: 34%;
       }
-      &:last-child { //redesign
+      &.redesign { //redesign
         left: auto;
         right: 22px;
         margin-left: -20px;
@@ -302,11 +306,12 @@
       left: 45px;
       right: 117px;
       top: 19px;
-      background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.66, #d3ccbf 66%), color-stop(.34, transparent), to(transparent));
-      background-image: -moz-linear-gradient(90deg, #d3ccbf 66%, transparent 34%);
-      background-image: -o-linear-gradient(90deg, #d3ccbf 66%, transparent 34%);
-      background-image: linear-gradient(90deg, #d3ccbf 66%, transparent 34%);
-      background-size: 12px 12px;
+      // background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.66, #d3ccbf 66%), color-stop(.34, transparent), to(transparent));
+      // background-image: -moz-linear-gradient(90deg, #d3ccbf 66%, transparent 34%);
+      // background-image: -o-linear-gradient(90deg, #d3ccbf 66%, transparent 34%);
+      // background-image: linear-gradient(90deg, #d3ccbf 66%, transparent 34%);
+      // background-size: 12px 12px;
+      background: url('../images/nav-stripe.gif') top left repeat-x;
     }
   }
   .reflect {
@@ -368,6 +373,7 @@
 
     .selected {
       background: url(../images/nav-mask2.png) top right no-repeat;
+      z-index: 1;
     .arrows {
       &:before, &:after {
         content: '';
@@ -443,10 +449,11 @@
         z-index: 2;
       }
       div:after {
-        background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.66, #fff 66%), color-stop(.34, transparent), to(transparent));
-        background-image: -moz-linear-gradient(90deg, #fff 66%, transparent 34%);
-        background-image: -o-linear-gradient(90deg, #fff 66%, transparent 34%);
-        background-image: linear-gradient(90deg, #fff 66%, transparent 34%);
+        // background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.66, #fff 66%), color-stop(.34, transparent), to(transparent));
+        // background-image: -moz-linear-gradient(90deg, #fff 66%, transparent 34%);
+        // background-image: -o-linear-gradient(90deg, #fff 66%, transparent 34%);
+        // background-image: linear-gradient(90deg, #fff 66%, transparent 34%);
+        background: url('../images/nav-stripe-selected.gif') top left repeat-x;
         z-index: 1;
       }
     }
