@@ -9,7 +9,7 @@
 {% block content %}
 
 <ul class="nav nav-justified nav-tabs">
-  <li {% if filter == 'favorites' %}class="active"{% endif %}><a href="#favorites" data-toggle="tab">Favorites ({{favorite_challenges|length}})</a></li>
+  <li {% if filter == 'favorites' %}class="active"{% endif %}><a data-target="#favorites" href="{% url 'challenges:favorite_challenges' %}" data-toggle="tabajax">Favorites</a></li>
   <li {% if filter in my_challenges_filters or filter != 'favorites' %}class="active"{% endif %}><a href="#challenges" data-toggle="tab">My Challenges ({{progresses|length}})</a></li>
 </ul>
 <div class="tab-content">

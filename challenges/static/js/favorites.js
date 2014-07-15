@@ -4,6 +4,7 @@ CM.Favorite = {Handlers: {}};
 CM.Favorite.Handlers =  {
 	init: function () {
 		this.initListeners()
+		this.setupFavoriteChallengesTab()
 	},
 
 	initListeners: function () {
@@ -45,6 +46,25 @@ CM.Favorite.Handlers =  {
 		target.find('.favorite-badge-icon-plus').addClass('hide');
 		target.addClass("favorited");
 		// icon.removeClass("glyphicon-plus").addClass("glyphicon-minus");
+	},
+
+	setupFavoriteChallengesTab: function () {
+		$('a[data-toggle="tabajax"]').on('show.bs.tab', function (e) {
+			var $this = $(e.target),
+			    loadurl = $this.attr('href'),
+			    targ = $this.attr('data-target');
+			$(targ).html("");
+		});
+		$('a[data-toggle="tabajax"]').on('shown.bs.tab', function (e) {
+			var $this = $(e.target),
+			    loadurl = $this.attr('href'),
+			    targ = $this.attr('data-target');
+
+			$.get(loadurl, function(data) {
+			    $(targ).html(data);
+			    $("#favorites").children().owlCarousel();
+			});
+		});
 	}
 };
 

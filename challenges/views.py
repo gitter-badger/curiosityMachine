@@ -18,6 +18,9 @@ from .utils import get_stage_for_progress
 from .forms import MaterialsForm
 from django.core.exceptions import PermissionDenied
 
+
+
+
 def challenges(request):
     challenges = Challenge.objects.all()
     favorite_challenges = []
@@ -144,3 +147,10 @@ def set_favorite(request, challenge_id, mode='favorite'):
         errors = [str(e)]
         return JsonResponse({'success': False, 'errors': errors}, content_type=content_type)
     return JsonResponse({'success': True, 'message': 'Success'}, content_type=content_type)
+
+@login_required
+def favorite_challenges(request):
+    favorite_challenges = []
+    if request.user.is_authenticated():
+        favorite_challenges = Favorite.objects.filter(student=request.user)
+    return render(request, 'ajax/favorites.html', {'favorite_challenges': favorite_challenges})
