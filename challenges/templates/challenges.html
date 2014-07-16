@@ -44,7 +44,7 @@
 </div>
 
 <ul class="nav nav-justified nav-tabs">
-  <li class=""><a href="#challenges" data-toggle="tab">All {{theme}} Challenges</a></li>
+  <li class="active"><a href="#challenges" data-toggle="tab">All {%if theme%}{{theme}}{% endif %} Challenges</a></li>
   <!-- <li><a href="#bookmarks" data-toggle="tab">Bookmarks</a></li> -->
   {% if request.user.is_authenticated %}
   <li><a data-target="#favorites" href="{% url 'challenges:favorite_challenges' %}" data-toggle="tabajax">Favorites</a></li>
