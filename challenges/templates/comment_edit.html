@@ -1,0 +1,13 @@
+<h1>Edit Comment</h1>
+{% extends "base.html" %}
+
+{% block content %}
+
+  <form method='post' action="{% url 'challenges:comment_edit' %}" enctype="multipart/form-data" id="profile-edit-form" class="default-form clearfix">
+    {% csrf_token %}
+    <div class="clearfix">
+    {% include "profile_fields.html" with page='edit' %}
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg pull-right">Save</button>
+  </form>
+{% endblock %}
