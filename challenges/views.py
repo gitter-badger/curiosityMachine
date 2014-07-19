@@ -16,6 +16,7 @@ from curiositymachine.decorators import mentor_or_current_student, mentor_only
 from videos.models import Video
 from .utils import get_stage_for_progress
 from .forms import MaterialsForm
+from .forms import EditComment
 from django.core.exceptions import PermissionDenied
 
 
@@ -81,7 +82,7 @@ def challenge_progress(request, challenge_id, username, stage=None): # stage wil
 @require_http_methods(["POST", "DELETE"])
 @login_required
 def challenge_progress_approve(request, challenge_id, username):
-    progress = get_object_or_404(Progress, challenge_id=challenge_id, student__username=username)
+    progress = get_object_or_404(Comment, challenge_id=challenge_id, student__username=username)
 
     #Only the mentor assigned to the progress can approve/un-approve it
     if not request.user == progress.mentor:
@@ -115,6 +116,31 @@ def claim_progress(request, progress_id):
 
     return HttpResponseRedirect(reverse('challenges:challenge_progress', kwargs={'challenge_id': progress.challenge.id, 'username': progress.student.username,}))
     #return HttpResponse(status=204)
+
+#@require_http_methods(["POST"])
+@mentor_only
+def comment_edit(request, challenge_id, username, stage):
+    content = get_object_or_404(Comment, challenge_id=challenge_id, username=username, stage=stage)
+
+#    if request.method == 'POST':
+#        if request.user.profile.is_mentor:
+    form = EditComment(request=request, content=content)
+#        else:
+#            form = StudentProfileEditForm(request=request, data=request.POST)
+#        if form.is_valid():
+#            data = form.cleaned_data
+#            create_or_edit_user(data, request.user)
+#            messages.success(request, 'Profile has been updated.')
+#        else:
+#            messages.error(request, 'Correct errors below.')
+#    else:
+#        if request.user.profile.is_mentor:
+#            form = MentorProfileEditForm(request)
+#        else:
+#            form = StudentProfileEditForm(request)
+
+    return render(request, 'comment_edit.html', {'form': form})
+
 
 # Any POST to this changes the materials list for that progress
 @require_http_methods(["POST"])
