@@ -7,9 +7,9 @@ templates_path = '../templates'
 template_extensions = ('html', 'txt')
 
 class EmailTemplate(object):
-	def __init__(self, recipients, subject, template_name, context={}, sender=None):
+	def __init__(self, recipients, subject, template_name, context={}, sender=settings.DEFAULT_FROM_EMAIL):
 		self.context = Context(context, autoescape=False)
-		self.sender = sender or getattr(settings,'CM_FROM', 'noreply@iridescent.com')
+		self.sender = sender
 		self.subject = subject
 		self.template_name = template_name
 		self.recipients = recipients
@@ -18,6 +18,7 @@ class EmailTemplate(object):
 		try:
 			return render_to_string("%s/%s.%s" % (templates_path, self.template_name, type), self.context)
 		except Exception as e:
+			print(str(e))
 			return None
 
 	def render_subject(self):
@@ -28,11 +29,16 @@ class EmailTemplate(object):
 
 	#NB: Some things missing here like connection management.
 	def deliver(self):
-		return send_mail(
-			self.render_subject(), 
-			self.render_body(), 
-			self.sender, 
-			self.render_recipients(), 
-			html_message=self.render_body('html'), 
-			fail_silently=False
-		)
+		print(self.render_subject())
+		print(self.render_body())
+		print(self.sender)
+		print(self.render_body('html'))
+		
+		# return send_mail(
+		# 	self.render_subject(), 
+		# 	self.render_body(), 
+		# 	self.sender, 
+		# 	self.render_recipients(), 
+		# 	html_message=self.render_body('html'), 
+		# 	fail_silently=False
+		# )

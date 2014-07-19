@@ -1,4 +1,4 @@
-Welcome to Curiosity Machine, [User Name]!
+Welcome to Curiosity Machine,  {{ student.username }}!
 
 With your new account, you can:
 
