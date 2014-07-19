@@ -34,6 +34,7 @@ CM.Favorite.Handlers =  {
 
 	unfavorited: function (target) {
 		// var icon = target.find('span.icon');
+		target.parent().parent().find('.favorite-badge-backfold').removeClass('active');
 		target.find('.favorite-badge-content').removeClass('active');
 		target.find('.favorite-badge-icon-plus').removeClass('hide');
 		target.removeClass("favorited");
@@ -42,6 +43,8 @@ CM.Favorite.Handlers =  {
 
 	favorited: function (target) {
 		// var icon = target.find('span.icon');
+		console.log(target)
+		target.parent().parent().find('.favorite-badge-backfold').addClass('active');
 		target.find('.favorite-badge-content').addClass('active');
 		target.find('.favorite-badge-icon-plus').addClass('hide');
 		target.addClass("favorited");
