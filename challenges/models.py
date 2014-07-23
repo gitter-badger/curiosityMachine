@@ -7,6 +7,7 @@ from videos.models import Video
 from images.models import Image
 from enum import Enum
 from django.utils.safestring import mark_safe
+from django.db.models.signals import post_save
 
 class Stage(Enum): # this is used in challenge views and challenge and comment models
     inspiration = 0
@@ -67,6 +68,10 @@ class Progress(models.Model):
     class Meta:
         verbose_name_plural = "progresses"
 
+    def is_first_project(self):
+        return self.student.progresses.count() == 1
+
+
     def save(self, *args, **kwargs):
         if Progress.objects.filter(challenge=self.challenge, student=self.student).exclude(id=self.id).exists():
             raise ValidationError("There is already progress by this student on this challenge")
@@ -101,7 +106,14 @@ class Progress(models.Model):
         return self.comments.filter(stage=Stage.reflect.value).exists()
 
     def __str__(self):
-        return "Progress: id={}, challenge_id={}, student_id={}".format(self.id, self.challenge_id, self.student_id)
+        return "Progress: id={}, challenge={}, student_id={}".format(self.id, self.challenge.name, self.student.first_name or self.student.last_name or self.student.email)
+
+def create_progress(sender, instance, created, **kwargs):
+    if created:
+        if sender.is_first_project():
+            sender.student.deliver_first_project_email()
+
+post_save.connect(create_progress, sender=Progress)
 
 class Favorite(models.Model):
     challenge = models.ForeignKey(Challenge)

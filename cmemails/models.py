@@ -37,22 +37,25 @@ class Notification(object):
     def email_underage_student(self, recipients, subject, context = {}):
         return self.email(recipients, subject, context, self.underage_student_template())
 
+    def deliver_email(self, profile):
+        methods = dir(self)
+        if profile.is_mentor:
+            if 'deliver_to_mentor' in methods:
+                return self.deliver_to_mentor(profile)
+        elif profile.is_underage():
+            if 'deliver_to_underage_student' in methods:
+                return self.deliver_to_underage_student(profile)
+        else:
+            if 'deliver_to_student' in methods:
+                return self.deliver_to_student(profile)
 
 class WelcomeNotification(Notification):
     def __init__(self):
         super(WelcomeNotification, self).__init__('welcome')
 
     @classmethod
-    def mentor(cls, mentor):
-        return cls().deliver_to_mentor(mentor)
-
-    @classmethod
-    def student(cls, student):
-        return cls().deliver_to_student(student)
-
-    @classmethod
-    def underage_student(cls, student):
-        return cls().deliver_to_underage_student(student)
+    def deliver(cls, *args, **kwargs):
+        return cls().deliver_email(*args, **kwargs)
 
     def deliver_to_mentor(self, mentor):
         return self.email_mentor([mentor.email], 'Welcome to the Curiosity Machine!', {'mentor': mentor})
@@ -69,8 +72,8 @@ class ActivationConfirmationNotification(Notification):
         super(ActivationConfirmationNotification, self).__init__('activation_confirmation')
 
     @classmethod
-    def underage_student(cls, student):
-        return cls().deliver_to_underage_student(student)
+    def deliver(cls, *args, **kwargs):
+        return cls().deliver_email(*args, **kwargs)
 
     def deliver_to_underage_student(self, student):
         self.email_underage_student([student.email], 'Your Child’s Curiosity Machine Account Is Now Active', {'student': student})
@@ -81,12 +84,8 @@ class InactiveNotification(Notification):
         super(InactiveNotification, self).__init__('inactive')
 
     @classmethod
-    def student(cls, student):
-        return cls().deliver_to_student(student)
-
-    @classmethod
-    def underage_student(cls, student):
-        return cls().deliver_to_underage_student(student)
+    def deliver(cls, *args, **kwargs):
+        return cls().deliver_email(*args, **kwargs)
     
     def deliver_to_student(self, student):
         return self.email_student([student.email], 'Start Inventing with Curiosity Machine!', {'student': student})
@@ -100,12 +99,8 @@ class FirstProjectNotification(Notification):
         super(FirstProjectNotification, self).__init__('first_project')
 
     @classmethod
-    def student(cls, student):
-        return cls().deliver_to_student(student)
-
-    @classmethod
-    def underage_student(cls, student):
-        return cls().deliver_to_underage_student(student)
+    def deliver(cls, *args, **kwargs):
+        return cls().deliver_email(*args, **kwargs)
 
     def deliver_to_student(self, student):
         return self.email_student([student.email], 'Success! Your Curiosity Machine Project Was Submitted', {'student': student})
@@ -119,12 +114,8 @@ class MentorRespondedNotification(Notification):
         super(MentorRespondedNotification, self).__init__('mentor_responded')
 
     @classmethod
-    def student(cls, student):
-        return cls().deliver_to_student(student)
-
-    @classmethod
-    def underage_student(cls, student):
-        return cls().deliver_to_underage_student(student)
+    def deliver(cls, *args, **kwargs):
+        return cls().deliver_email(*args, **kwargs)
 
     def deliver_to_student(self, student):
         return self.email_student([student.email], 'A Curiosity Machine Mentor Responded to Your Project', {'student': student})
@@ -138,12 +129,8 @@ class ProjectCompletionNotification(Notification):
         super(ProjectCompletionNotification, self).__init__('project_completion')
 
     @classmethod
-    def student(cls, student):
-        return cls().deliver_to_student(student)
-
-    @classmethod
-    def underage_student(cls, student):
-        return cls().deliver_to_underage_student(student)
+    def deliver(cls, *args, **kwargs):
+        return cls().deliver_email(*args, **kwargs)
 
     def deliver_to_student(self, student):
         return self.email_student([student.email], 'Publish Your Curiosity Machine Project', {'student': student})
@@ -157,12 +144,8 @@ class PublishNotification(Notification):
         super(PublishNotification, self).__init__('publish')
 
     @classmethod
-    def student(cls, student):
-        return cls().deliver_to_student(student)
-
-    @classmethod
-    def underage_student(cls, student):
-        return cls().deliver_to_underage_student(student)
+    def deliver(cls, *args, **kwargs):
+        return cls().deliver_email(*args, **kwargs)
 
     def deliver_to_student(self, student):
         return self.email_student([student.email], 'Thanks for Sharing Your Curiosity Machine Project!', {'student': student})
@@ -176,8 +159,8 @@ class EncouragementNotification(Notification):
         super(EncouragementNotification, self).__init__('encouragement')
 
     @classmethod
-    def mentor(cls, mentor):
-        return cls().deliver_to_mentor(mentor)
+    def deliver(cls, *args, **kwargs):
+        return cls().deliver_email(*args, **kwargs)
     
     def deliver_to_mentor(self, mentor):
         return self.email_mentor([mentor.email], 'New Students Projects on Curiosity Machine!', {'mentor': mentor})
@@ -189,8 +172,8 @@ class StudentRespondedNotification(Notification):
         super(StudentRespondedNotification, self).__init__('student_responded')
 
     @classmethod
-    def mentor(cls, mentor):
-        return cls().deliver_to_mentor(mentor)
+    def deliver(cls, *args, **kwargs):
+        return cls().deliver_email(*args, **kwargs)
     
     def deliver_to_mentor(self, mentor):
         return self.email_mentor([mentor.email], 'Your Student Responded!', {'mentor': mentor})
@@ -201,8 +184,8 @@ class StudentCompletedNotification(Notification):
         super(StudentCompletedNotification, self).__init__('student_completed')
 
     @classmethod
-    def mentor(cls, mentor):
-        return cls().deliver_to_mentor(mentor)
+    def deliver(cls, *args, **kwargs):
+        return cls().deliver_email(*args, **kwargs)
     
     def deliver_to_mentor(self, mentor):
         return self.email_mentor([mentor.email], 'Your Student Completed Their project!', {'mentor': mentor})
@@ -213,8 +196,8 @@ class ModuleCompletedNotification(Notification):
         super(StudentCompletedNotification, self).__init__('module_completed')
 
     @classmethod
-    def mentor(cls, mentor):
-        return cls().deliver_to_mentor(mentor)
+    def deliver(cls, *args, **kwargs):
+        return cls().deliver_email(*args, **kwargs)
     
     def deliver_to_mentor(self, mentor):
         return self.email_mentor([mentor.email], 'Get Started on Curiosity Machine!', {'mentor': mentor})
