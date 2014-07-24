@@ -8,6 +8,7 @@ from images.models import Image
 from enum import Enum
 from django.utils.safestring import mark_safe
 from django.db.models.signals import post_save
+from django.utils.timezone import now
 
 class Stage(Enum): # this is used in challenge views and challenge and comment models
     inspiration = 0
@@ -71,6 +72,10 @@ class Progress(models.Model):
     def is_first_project(self):
         return self.student.progresses.count() == 1
 
+    def approve(self):
+        self.approved=now()
+        self.student.deliver_project_completion_email()
+        self.save()
 
     def save(self, *args, **kwargs):
         if Progress.objects.filter(challenge=self.challenge, student=self.student).exclude(id=self.id).exists():
