@@ -1,5 +1,8 @@
+{% extends "email_base.html" %}
+{% block content %}
+
 <p>
-Great work, {{ student.first_name or student.user.username}}! Your mentor thinks you’re ready to finish your project and share it with the world! 
+Great work, {{ student.first_name | default:student.user.username }}! Your mentor thinks you’re ready to finish your project and share it with the world! 
 </p>
 
 <p>
@@ -7,3 +10,4 @@ Head to Curiosity Machine to respond to the reflect questions and publish your p
 </p>
 
 (Take me to Curiosity Machine!)* button
+{% endblock %}

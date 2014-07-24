@@ -122,8 +122,10 @@ class Progress(models.Model):
 
 def create_progress(sender, instance, created, **kwargs):
     if created:
-        if sender.is_first_project():
-            sender.student.deliver_first_project_email()
+        print("created progress")
+        if instance.is_first_project():
+            print("first project!! progress")
+            instance.student.profile.deliver_first_project_email()
 
 post_save.connect(create_progress, sender=Progress)
 

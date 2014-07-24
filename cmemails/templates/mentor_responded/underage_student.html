@@ -1,7 +1,11 @@
+{% extends "email_base.html" %}
+{% block content %}
+
 <p>
-One of our science and engineering mentors left comments on your child’s project! Your child can log on to Curiosity Machine(link) as {{ student.first_name or student.user.username}} to review the feedback and respond to the mentor. 
+One of our science and engineering mentors left comments on your child’s project! Your child can log on to Curiosity Machine(link) as {{ student.first_name | default:student.user.username }} to review the feedback and respond to the mentor. 
 </p>
 <p>
 Then, you can help your child incorporate the mentor feedback as s/he continue to redesign the project! 
 </p>
 (Respond to mentor feedback and keep designing on Curiosity Machine!)* button
+{% endblock %}

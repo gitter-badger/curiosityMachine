@@ -1,5 +1,8 @@
+{% extends "email_base.html" %}
+{% block content %}
+
 <p>
-Congratulations, {{ student.first_name or student.user.username}}! Your project has been published to the Inspiration gallery(link) for other Curiosity Machine users to see. 
+Congratulations, {{ student.first_name | default:student.user.username }}! Your project has been published to the Inspiration gallery(link) for other Curiosity Machine users to see. 
 </p>
 
 <p>
@@ -7,3 +10,4 @@ What will you build next?
 </p>
 
 (Click here to explore more design challenges!)* button 
+{% endblock %}

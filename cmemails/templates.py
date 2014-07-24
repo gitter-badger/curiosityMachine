@@ -53,8 +53,8 @@ class EmailTemplate(object):
 	def deliver(self):
 		subject, from_email, to = self.render_subject(), self.sender, self.recipients
 		text_content = self.render_body_content()
-		
+		html_part = self.render_html_body()
 		msg = EmailMessage(subject, '', from_email, to)
-		msg.attach(self.render_html_body())
+		msg.attach(html_part)
 		msg.send()
 		

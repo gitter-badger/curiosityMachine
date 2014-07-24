@@ -1,5 +1,8 @@
+{% extends "email_base.html" %}
+{% block content %}
+
 <p>
-Hi {{ mentor.first_name or mentor.user.username}}!
+Hi {{ mentor.first_name | default:mentor.user.username }}!
 </p>
 <p>
 Congratulations on completing the mentor training! We’re extremely excited to have you join the community and I know our students are looking forward to receiving feedback from you on their design challenges!
@@ -23,3 +26,4 @@ We’ll be recognizing our top mentors every month, sending hand-written thank y
 Best regards,
 Curiosity Machine Team
 </p>
+{% endblock %}

@@ -1,4 +1,4 @@
-Way to go, {{ student.first_name or student.user.username}}! You submitted your first Curiosity Machine project. 
+Way to go, {{ student.first_name | default:student.user.username }}! You submitted your first Curiosity Machine project. 
 
 Our science and engineer mentors are checking out your awesome design now! Check back tomorrow to see their feedback and make sure to keep working on your project in the meantime!
 

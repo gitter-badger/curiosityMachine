@@ -2,7 +2,7 @@
 {% block content %}
 
 <p>
-Hi {{ mentor.first_name or mentor.user.username}}!
+Hi {{ mentor.first_name | default:mentor.user.username }}!
 </p>
 
 <p>

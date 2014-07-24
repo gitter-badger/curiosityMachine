@@ -1,5 +1,8 @@
+{% extends "email_base.html" %}
+{% block content %}
+
 <p>
-Hi {{ mentor.first_name or mentor.user.username}}!
+Hi {{ mentor.first_name | default:mentor.user.username }}!
 </p>
 
 <p>
@@ -20,3 +23,4 @@ Once you think they’re finished, make sure to move them to the Reflect Stage s
 Best regards,
 Curiosity Machine Team
 </p>
+{% endblock %}

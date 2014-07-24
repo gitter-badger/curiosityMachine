@@ -1,9 +1,13 @@
+{% extends "email_base.html" %}
+{% block content %}
+
 <p>
 Great work! Your child’s project is ready to be finished up and shared with our Curiosity Machine community. 
 </p>
 
 <p>
-Ask your child to log on to Curiosity Machine(link) as {{ student.first_name or student.user.username}} to respond to the reflection questions and publish the project in the Curiosity Machine Inspiration gallery(link). 
+Ask your child to log on to Curiosity Machine(link) as {{ student.first_name | default:student.user.username }} to respond to the reflection questions and publish the project in the Curiosity Machine Inspiration gallery(link). 
 </p>
 
 (Take me to Curiosity Machine!)* button
+{% endblock %}

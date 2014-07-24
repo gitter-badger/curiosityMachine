@@ -1,5 +1,8 @@
+{% extends "email_base.html" %}
+{% block content %}
+
 <p>
-Your child’s account is active (user name: {{ student.first_name or student.user.username}}); now you can start building together! 
+Your child’s account is active (user name: {{ student.first_name | default:student.user.username }}); now you can start building together! 
 </p>
 <p>
 As a reminder, here are some of features you’ll find at Curiosity Machine: 
@@ -16,3 +19,4 @@ Looking for some inspiration? Check out what others are building in our Inspirat
 </p>
 
 (Click here to start inventing!)* button
+{% endblock %}

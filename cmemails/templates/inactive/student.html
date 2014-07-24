@@ -1,5 +1,8 @@
+{% extends "email_base.html" %}
+{% block content %}
+
 <p>
-Hi {{ student.first_name or student.user.username}}, 
+Hi {{ student.first_name | default:student.user.username }}, 
 </p>
 <p>
 Looking for some inspiration? 
@@ -10,3 +13,4 @@ Check out what others are building in our Inspiration gallery(link), then try a 
 
 (Click here to start inventing!)* button
 
+{% endblock %}
