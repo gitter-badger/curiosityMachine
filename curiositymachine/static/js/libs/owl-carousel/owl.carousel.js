@@ -331,7 +331,7 @@ if (typeof Object.create !== "function") {
             if (mq.matches){
                 var base = this, width = base.$owlItems.length * base.itemWidth;
                 base.$owlWrapper.css({
-                    "width": ( width < 1140 ? width : width / 2 ),
+                    "width": ( width < 1140 ? width : 1140 ),
                     "left": 0
                 });
             } else {

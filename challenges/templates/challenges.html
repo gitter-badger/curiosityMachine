@@ -60,7 +60,7 @@
   </div><!-- /#challenges -->
   {% if request.user.is_authenticated %}
   <div class="tab-pane fade" id="favorites" >
-    <ul class="challenges-list owl-carousel panel-carousel">
+    <ul class="challenges-list owl-carousel panel-carousel" id="favorites-scroll">
       {% for favorite in favorite_challenges %}
         {% include "_challenge_item.html"  with challenge=favorite.challenge %}
       {% endfor %}
