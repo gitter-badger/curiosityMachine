@@ -18,6 +18,7 @@ from .utils import get_stage_for_progress
 from .forms import MaterialsForm
 from .forms import EditComment
 from django.core.exceptions import PermissionDenied
+from profiles.models import Profile
 
 
 
