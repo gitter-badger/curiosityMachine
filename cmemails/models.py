@@ -118,11 +118,11 @@ class MentorRespondedNotification(Notification):
     def deliver(cls, *args, **kwargs):
         return cls().deliver_email(*args, **kwargs)
 
-    def deliver_to_student(self, student):
-        return self.email_student([student.email], 'A Curiosity Machine Mentor Responded to Your Project', {'student': student})
+    def deliver_to_student(self, student, progress, mentor):
+        return self.email_student([student.email], 'A Curiosity Machine Mentor Responded to Your Project', {'student': student, 'mentor': mentor, 'progress': progress})
 
-    def deliver_to_underage_student(self, student):
-        return self.email_underage_student([student.email], 'A Curiosity Machine Mentor Responded to Your Child’s Project', {'student': student})
+    def deliver_to_underage_student(self, student, mentor):
+        return self.email_underage_student([student.email], 'A Curiosity Machine Mentor Responded to Your Child’s Project', {'student': student, 'mentor': mentor})
 
 class ProjectCompletionNotification(Notification): 
 
@@ -176,8 +176,8 @@ class StudentRespondedNotification(Notification):
     def deliver(cls, *args, **kwargs):
         return cls().deliver_email(*args, **kwargs)
     
-    def deliver_to_mentor(self, mentor):
-        return self.email_mentor([mentor.email], 'Your Student Responded!', {'mentor': mentor})
+    def deliver_to_mentor(self, mentor, progress, student):
+        return self.email_mentor([mentor.email], 'Your Student Responded!', {'mentor': mentor, 'student': student, 'progress': progress})
 
 class StudentCompletedNotification(Notification): 
 

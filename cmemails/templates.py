@@ -15,6 +15,8 @@ CM_EMAILS_ROOT = os.path.abspath(os.path.dirname(__file__))
 templates_path = '../templates'
 template_extensions = ('html', 'txt')
 
+
+#check this out: http://code.activestate.com/recipes/473810-send-an-html-email-with-embedded-image-and-plain-t/
 class EmailTemplate(object):
 	def __init__(self, recipients, subject, template_name, context={}, sender=settings.DEFAULT_FROM_EMAIL):
 		ctx = {'site_url': settings.SITE_URL}

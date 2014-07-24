@@ -111,10 +111,11 @@ class Progress(models.Model):
         return self.comments.filter(stage=Stage.reflect.value).exists()
 
     def email_mentor_responded(self):
-        return self.student.profile.deliver_mentor_responded_email()
+        if self.mentor:
+            return self.student.profile.deliver_mentor_responded_email(self, self.mentor.profile)
 
     def email_student_responded(self):
-        return self.mentor.profile.deliver_student_responded_email()
+        return self.mentor.profile.deliver_student_responded_email(self, self.student.profile)
 
 
     def __str__(self):
