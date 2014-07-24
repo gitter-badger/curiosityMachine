@@ -110,6 +110,13 @@ class Progress(models.Model):
         # a progress is complete once a comment has been made on the Reflect stage
         return self.comments.filter(stage=Stage.reflect.value).exists()
 
+    def email_mentor_responded(self):
+        return self.student.profile.deliver_mentor_responded_email()
+
+    def email_student_responded(self):
+        return self.mentor.profile.deliver_student_responded_email()
+
+
     def __str__(self):
         return "Progress: id={}, challenge={}, student_id={}".format(self.id, self.challenge.name, self.student.first_name or self.student.last_name or self.student.email)
 

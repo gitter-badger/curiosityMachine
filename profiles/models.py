@@ -64,7 +64,6 @@ class Profile(models.Model):
     def deliver_welcome_email(self):
         return WelcomeNotification().deliver(self)
 
-    #[hooked]
     #this will be triggered in admin
     def deliver_activation_email(self):
         return ActivationConfirmationNotification().deliver(self)

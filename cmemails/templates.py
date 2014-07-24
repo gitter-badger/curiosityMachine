@@ -2,6 +2,9 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.template import Context, TemplateDoesNotExist
+import os.path
+
+CM_EMAILS_ROOT = os.path.abspath(os.path.dirname(__file__))
 
 templates_path = '../templates'
 template_extensions = ('html', 'txt')
@@ -34,11 +37,11 @@ class EmailTemplate(object):
 		print(self.sender)
 		print(self.render_body('html'))
 		
-		# return send_mail(
-		# 	self.render_subject(), 
-		# 	self.render_body(), 
-		# 	self.sender, 
-		# 	self.render_recipients(), 
-		# 	html_message=self.render_body('html'), 
-		# 	fail_silently=False
-		# )
+		return send_mail(
+			self.render_subject(), 
+			self.render_body(), 
+			self.sender, 
+			self.render_recipients(), 
+			html_message=self.render_body('html'), 
+			fail_silently=False
+		)

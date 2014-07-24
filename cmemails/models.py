@@ -37,17 +37,18 @@ class Notification(object):
     def email_underage_student(self, recipients, subject, context = {}):
         return self.email(recipients, subject, context, self.underage_student_template())
 
-    def deliver_email(self, profile):
+    def deliver_email(self, *args, **kwargs):
+        profile = args[0]
         methods = dir(self)
         if profile.is_mentor:
             if 'deliver_to_mentor' in methods:
-                return self.deliver_to_mentor(profile)
+                return self.deliver_to_mentor(*args, **kwargs)
         elif profile.is_underage():
             if 'deliver_to_underage_student' in methods:
-                return self.deliver_to_underage_student(profile)
+                return self.deliver_to_underage_student(*args, **kwargs)
         else:
             if 'deliver_to_student' in methods:
-                return self.deliver_to_student(profile)
+                return self.deliver_to_student(*args, **kwargs)
 
 class WelcomeNotification(Notification):
     def __init__(self):

@@ -29,6 +29,6 @@ class Comment(models.Model):
 def create_comment(sender, instance, created, **kwargs):
     if created:
         if instance.stage == Stage.reflect.value:
-            instance.student.deliver_student_completed_email()
+            instance.challenge_progress.mentor.profile.deliver_student_completed_email()
 
 post_save.connect(create_comment, sender=Comment)
