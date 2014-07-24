@@ -60,9 +60,11 @@ class Profile(models.Model):
         else:
             return Comment.objects.exclude(user=self.user).filter(challenge_progress__student=self.user, read=False).count()
 
+    #[hooked]
     def deliver_welcome_email(self):
         return WelcomeNotification().deliver(self)
 
+    #[hooked]
     #this will be triggered in admin
     def deliver_activation_email(self):
         return ActivationConfirmationNotification().deliver(self)
@@ -71,27 +73,34 @@ class Profile(models.Model):
     def deliver_inactive_email(self): 
         return InactiveNotification().deliver(self)
 
+    #[hooked]
     def deliver_first_project_email(self):
         return FirstProjectNotification().deliver(self)
 
+    #[hooked]
     def deliver_mentor_responded_email(self):
         return MentorRespondedNotification().deliver(self)
 
+    #[hooked]
     def deliver_project_completion_email(self):
         return ProjectCompletionNotification().deliver(self)
 
     def deliver_publish_email(self):
         return PublishNotification().deliver(self)
 
+    #[]
     def deliver_encouragement_email(self):
         return EncouragementNotification().deliver(self)
 
+    #[hooked]
     def deliver_student_responded_email(self):
         return StudentRespondedNotification().deliver(self)
 
+    #[hooked]
     def deliver_student_completed_email(self):
         return StudentCompletedNotification().deliver(self)
 
+    #[hooked]
     def deliver_module_completed_email(self):
         return ModuleCompletedNotification().deliver(self)
 

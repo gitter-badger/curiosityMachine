@@ -74,7 +74,7 @@ class Progress(models.Model):
 
     def approve(self):
         self.approved=now()
-        self.student.deliver_project_completion_email()
+        self.student.profile.deliver_project_completion_email()
         self.save()
 
     def save(self, *args, **kwargs):

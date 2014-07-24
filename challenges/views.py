@@ -20,8 +20,6 @@ from .forms import EditComment
 from django.core.exceptions import PermissionDenied
 
 
-
-
 def challenges(request):
     challenges = Challenge.objects.all()
     favorite_challenges = []
@@ -82,7 +80,7 @@ def challenge_progress(request, challenge_id, username, stage=None): # stage wil
 @require_http_methods(["POST", "DELETE"])
 @login_required
 def challenge_progress_approve(request, challenge_id, username):
-    progress = get_object_or_404(Comment, challenge_id=challenge_id, student__username=username)
+    progress = get_object_or_404(Progress, challenge_id=challenge_id, student__username=username)
 
     #Only the mentor assigned to the progress can approve/un-approve it
     if not request.user == progress.mentor:
