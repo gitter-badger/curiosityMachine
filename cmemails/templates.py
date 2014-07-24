@@ -17,7 +17,9 @@ template_extensions = ('html', 'txt')
 
 class EmailTemplate(object):
 	def __init__(self, recipients, subject, template_name, context={}, sender=settings.DEFAULT_FROM_EMAIL):
-		self.context = Context(context, autoescape=False)
+		ctx = {'site_url': settings.SITE_URL}
+		ctx.update(context)
+		self.context = Context(ctx, autoescape=False)
 		self.sender = sender
 		self.subject = subject
 		self.template_name = template_name

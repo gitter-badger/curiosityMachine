@@ -98,6 +98,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 AUTH_USER_MODEL = 'auth.User'
 
 ROOT_URLCONF = 'curiositymachine.urls'
+SITE_URL = 'https://www.curiositymachine.org'
 
 WSGI_APPLICATION = 'curiositymachine.wsgi.application'
 
