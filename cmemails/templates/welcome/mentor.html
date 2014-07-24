@@ -1,6 +1,9 @@
 {% extends "email_base.html" %}
 {% block content %}
-Hi {{ mentor.username }}!
+
+<p>
+Hi {{ mentor.first_name or mentor.user.username}}!
+</p>
 
 <p>
 Thanks for joining our mentor community on the Curiosity Machine! We want to have a stellar community of scientists and engineers advising students, and so we ask all of our mentors to complete a short training course. The training is made up of three main learning exercises. You can complete these at your own pace, however, we do ask that you finish the full training within a week. 

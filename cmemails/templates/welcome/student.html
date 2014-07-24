@@ -1,7 +1,10 @@
 {% extends "email_base.html" %}
 {% block content %}
-Welcome to Curiosity Machine,  {{ student.username }}!
+<p>
+Welcome to Curiosity Machine,  {{ student.first_name or student.user.username}}!
+</p>
 
+<p>
 With your new account, you can:
 
 <ul>
@@ -9,6 +12,7 @@ With your new account, you can:
   <li>Share pictures and videos of your designs with the Curiosity Machine community</li>
   <li>Work with real science &amp; engineering mentors as you invent</li>
 </ul>
+</p>
 
 (Click here to start creating!)* button
 {% endblock %}

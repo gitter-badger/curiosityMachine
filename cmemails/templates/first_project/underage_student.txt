@@ -1,4 +1,4 @@
-Your child, [User Name], has submitted a project to Curiosity Machine!
+Your child, {{ student.first_name or student.user.username}}, has submitted a project to Curiosity Machine!
 
 Our science and engineer mentors are checking out his/her awesome design now. Check back tomorrow to see their feedback and encourage your child to keep working on the project
 

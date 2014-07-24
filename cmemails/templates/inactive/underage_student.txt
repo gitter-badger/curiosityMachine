@@ -1,4 +1,4 @@
-Your child’s account is active (user name: {{ student.username }}); now you can start building together! 
+Your child’s account is active (user name: {{ student.first_name or student.user.username}}); now you can start building together! 
 
 As a reminder, here are some of features you’ll find at Curiosity Machine: 
 

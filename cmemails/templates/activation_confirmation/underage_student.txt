@@ -1,6 +1,6 @@
 Welcome to Curiosity Machine! 
 
-Your child’s account (user name: {{ student.username }}) has been activated, and now you can start building together! 
+Your child’s account (user name: {{ student.user.username }}) has been activated, and now you can start building together! 
 
 With Curiosity Machine(link), you and your child will be able to:
 

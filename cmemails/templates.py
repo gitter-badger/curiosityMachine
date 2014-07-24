@@ -3,6 +3,12 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.template import Context, TemplateDoesNotExist
 import os.path
+from django.core.mail import EmailMessage
+from email.mime.image import MIMEImage
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from django.core.mail import EmailMessage
+
 
 CM_EMAILS_ROOT = os.path.abspath(os.path.dirname(__file__))
 
@@ -17,12 +23,26 @@ class EmailTemplate(object):
 		self.template_name = template_name
 		self.recipients = recipients
 
-	def render_body(self, type='txt'):
+	def render_body_content(self, type='txt'):
 		try:
 			return render_to_string("%s/%s.%s" % (templates_path, self.template_name, type), self.context)
 		except Exception as e:
 			print(str(e))
 			return None
+
+	def render_html_body(self):
+		html_part = MIMEMultipart(_subtype='related')
+		html_part.attach(MIMEText(self.render_body_content('html'),  _subtype='html'))
+		
+		embedded_image = open('/'.join([CM_EMAILS_ROOT, 'static', 'images', 'CM_banner.png']), 'rb')
+		img = MIMEImage(embedded_image.read(), 'png')
+		embedded_image.close()
+		
+		img.add_header('Content-Id', '<banner>')  # angle brackets are important
+		img.add_header("Content-Disposition", "inline", filename="banner") 
+		html_part.attach(img)
+		return html_part
+		
 
 	def render_subject(self):
 		return self.subject
@@ -30,18 +50,11 @@ class EmailTemplate(object):
 	def render_recipients(self):
 		return self.recipients
 
-	#NB: Some things missing here like connection management.
 	def deliver(self):
-		print(self.render_subject())
-		print(self.render_body())
-		print(self.sender)
-		print(self.render_body('html'))
+		subject, from_email, to = self.render_subject(), self.sender, self.recipients
+		text_content = self.render_body_content()
 		
-		return send_mail(
-			self.render_subject(), 
-			self.render_body(), 
-			self.sender, 
-			self.render_recipients(), 
-			html_message=self.render_body('html'), 
-			fail_silently=False
-		)
+		msg = EmailMessage(subject, '', from_email, to)
+		msg.attach(self.render_html_body())
+		msg.send()
+		

@@ -1,4 +1,4 @@
-Hi [First Name]!
+Hi {{ mentor.first_name or mentor.user.username}}!
 
 We noticed you’ve been gone for awhile! Our students building at home and in Curiosity Courses are hoping to connect with mentors like you and receive feedback on their design challenges. 
 

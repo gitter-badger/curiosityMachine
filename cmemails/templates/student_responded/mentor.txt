@@ -1,4 +1,4 @@
-Hi [First Name]!
+Hi {{ mentor.first_name or mentor.user.username}}!
 
 Your student [student’s first name or username] just responded to the feedback you gave on their design challenge! Looks like they’re ready for you to see their new design! 
 

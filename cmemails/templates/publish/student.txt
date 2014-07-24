@@ -1,4 +1,4 @@
-Congratulations, [User Name]! Your project has been published to the Inspiration gallery(link) for other Curiosity Machine users to see. 
+Congratulations, {{ student.first_name or student.user.username}}! Your project has been published to the Inspiration gallery(link) for other Curiosity Machine users to see. 
 
 What will you build next?
 
