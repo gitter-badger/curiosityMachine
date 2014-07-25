@@ -4,7 +4,7 @@ from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from images.models import Image
-from datetime import date
+from datetime import date,timedelta
 from cmcomments.models import Comment
 from cmemails.models import *
 from django.contrib.auth.models import User
@@ -25,6 +25,18 @@ class Profile(models.Model):
     image = models.ForeignKey(Image, null=True, blank=True, on_delete=models.SET_NULL)
     approved = models.BooleanField(default=False)
     last_active_on = models.DateTimeField(default=now)
+
+    @classmethod
+    def inactive_users(cls):
+        startdate = now()
+        enddate = startdate + timedelta(days=14)
+        return cls.objects.filter(last_active_on__gt=enddate)
+
+    @classmethod
+    def active_users(cls):
+        startdate = now()
+        enddate = startdate + timedelta(days=14)
+        return cls.objects.filter(last_active_on__lt=enddate)
 
     @property
     def is_student(self):
@@ -67,7 +79,6 @@ class Profile(models.Model):
     def deliver_activation_email(self):
         return ActivationConfirmationNotification().deliver(self)
 
-    #this will be triggered by a cron or heroku scheduler
     def deliver_inactive_email(self): 
         return InactiveNotification().deliver(self)
 
@@ -83,7 +94,6 @@ class Profile(models.Model):
     def deliver_publish_email(self, progress):
         return PublishNotification().deliver(self, progress)
 
-    #[]
     def deliver_encouragement_email(self):
         return EncouragementNotification().deliver(self)
 
@@ -95,7 +105,6 @@ class Profile(models.Model):
 
     def deliver_module_completed_email(self):
         return ModuleCompletedNotification().deliver(self)
-
 
 
 def create_user_profile(sender, instance, created, **kwargs):
