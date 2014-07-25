@@ -77,11 +77,11 @@ class Profile(models.Model):
     def deliver_mentor_responded_email(self, progress, mentor):
         return MentorRespondedNotification().deliver(self, progress, mentor)
 
-    def deliver_project_completion_email(self):
-        return ProjectCompletionNotification().deliver(self)
+    def deliver_project_completion_email(self, progress):
+        return ProjectCompletionNotification().deliver(self, progress)
 
-    def deliver_publish_email(self):
-        return PublishNotification().deliver(self)
+    def deliver_publish_email(self, progress):
+        return PublishNotification().deliver(self, progress)
 
     #[]
     def deliver_encouragement_email(self):

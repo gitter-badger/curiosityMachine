@@ -133,11 +133,11 @@ class ProjectCompletionNotification(Notification):
     def deliver(cls, *args, **kwargs):
         return cls().deliver_email(*args, **kwargs)
 
-    def deliver_to_student(self, student):
-        return self.email_student([student.email], 'Publish Your Curiosity Machine Project', {'student': student})
+    def deliver_to_student(self, student, progress):
+        return self.email_student([student.email], 'Publish Your Curiosity Machine Project', {'student': student, 'progress': progress, 'stage': "inspiration"})
 
-    def deliver_to_underage_student(self, student):
-        return self.email_underage_student([student.email], 'Publish Your Child’s Curiosity Machine Project', {'student': student})
+    def deliver_to_underage_student(self, student, progress):
+        return self.email_underage_student([student.email], 'Publish Your Child’s Curiosity Machine Project', {'student': student, 'progress': progress, 'stage': "inspiration"})
 
 class PublishNotification(Notification): 
 
@@ -148,11 +148,11 @@ class PublishNotification(Notification):
     def deliver(cls, *args, **kwargs):
         return cls().deliver_email(*args, **kwargs)
 
-    def deliver_to_student(self, student):
-        return self.email_student([student.email], 'Thanks for Sharing Your Curiosity Machine Project!', {'student': student})
+    def deliver_to_student(self, student, progress):
+        return self.email_student([student.email], 'Thanks for Sharing Your Curiosity Machine Project!', {'student': student, 'progress': progress, 'stage': "inspiration"})
 
-    def deliver_to_underage_student(self, student):
-        return self.email_underage_student([student.email], 'Thanks for Sharing on Curiosity Machine!', {'student': student})
+    def deliver_to_underage_student(self, student, progress):
+        return self.email_underage_student([student.email], 'Thanks for Sharing on Curiosity Machine!', {'student': student, 'progress': progress, 'stage': "inspiration"})
 
 class EncouragementNotification(Notification): 
 

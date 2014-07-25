@@ -2,6 +2,6 @@ Hi {{ student.first_name | default:student.user.username }},
 
 Looking for some inspiration? 
 
-Check out what others are building in our Inspiration gallery(link), then try a project of your own! 
+Check out what others are building in our Inspiration gallery, then try a project of your own! 
 
 (Click here to start inventing!)* button

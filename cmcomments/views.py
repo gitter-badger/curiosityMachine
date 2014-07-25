@@ -56,6 +56,7 @@ def feature_as_example(request, challenge_id, username, stage, comment_id): # "s
         else:
             messages.success(request, "{}'s uploaded media was featured on the inspiration page.".format(progress.student))
         Example.objects.create(challenge=progress.challenge, progress=progress, image=comment.image, video=comment.video)
+        
     elif request.method == "DELETE":
         Example.objects.filter(progress=progress).delete()
         messages.error(request, "{}'s previously featured example was un-featured.".format(progress.student))

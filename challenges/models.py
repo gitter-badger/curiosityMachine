@@ -74,7 +74,7 @@ class Progress(models.Model):
 
     def approve(self):
         self.approved=now()
-        self.student.profile.deliver_project_completion_email()
+        self.student.profile.deliver_project_completion_email(self)
         self.save()
 
     def save(self, *args, **kwargs):
@@ -123,9 +123,7 @@ class Progress(models.Model):
 
 def create_progress(sender, instance, created, **kwargs):
     if created:
-        print("created progress")
         if instance.is_first_project():
-            print("first project!! progress")
             instance.student.profile.deliver_first_project_email()
 
 post_save.connect(create_progress, sender=Progress)
@@ -158,3 +156,9 @@ class Example(models.Model): # media that a mentor has selected to be featured o
         elif self.progress: return self.progress.student.username
         else: return ""
 
+def create_example(sender, instance, created, **kwargs):
+    if created:
+        if instance.is_first_project():
+            instance.student.profile.deliver_publish_email(self.progress)
+
+post_save.connect(create_example, sender=Example)
