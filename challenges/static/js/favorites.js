@@ -8,7 +8,7 @@ CM.Favorite.Handlers =  {
 	},
 
 	initListeners: function () {
-		$('.favorite').click({me: this}, this.callback);
+		$(document.body).on('click', '.favorite', {me: this}, this.callback);
 	},
 
 	callback: function (e) {
