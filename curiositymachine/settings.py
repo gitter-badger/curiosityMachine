@@ -66,6 +66,7 @@ INSTALLED_APPS = (
     'django_summernote',
     'django_bleach',
     'training',
+    'cmemails',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -79,6 +80,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "curiositymachine.middleware.UnderageStudentSandboxMiddleware",
     'curiositymachine.middleware.UnapprovedMentorSandboxMiddleware',
+    'curiositymachine.middleware.LastActiveMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (

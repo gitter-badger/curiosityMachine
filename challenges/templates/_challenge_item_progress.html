@@ -23,7 +23,7 @@
     </div>
     </div>
     <div class="panel-body">
-      <h4>{{ progress.challenge.name }}</h4>
+      <h4><a href="{% url 'challenges:challenge_progress' challenge_id=progress.challenge.id username=progress.student.username %}">{{ progress.challenge.name }}</a></h4>
       <p>Started: {{ progress.started }}</p>
       {% if not progress.mentor %}
         <form class="ajax-and-refresh-form" action="{% url "challenges:claim_progress" progress_id=progress.id %}" method="POST">

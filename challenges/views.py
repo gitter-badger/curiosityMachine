@@ -21,8 +21,6 @@ from django.core.exceptions import PermissionDenied
 from profiles.models import Profile
 
 
-
-
 def challenges(request):
     challenges = Challenge.objects.all()
     favorite_challenges = []
@@ -83,14 +81,14 @@ def challenge_progress(request, challenge_id, username, stage=None): # stage wil
 @require_http_methods(["POST", "DELETE"])
 @login_required
 def challenge_progress_approve(request, challenge_id, username):
-    progress = get_object_or_404(Comment, challenge_id=challenge_id, student__username=username)
+    progress = get_object_or_404(Progress, challenge_id=challenge_id, student__username=username)
 
     #Only the mentor assigned to the progress can approve/un-approve it
     if not request.user == progress.mentor:
         raise PermissionDenied
 
     if request.method == "POST":
-        Progress.objects.filter(id=progress.id).update(approved=now())
+        progress.approve()
         messages.success(request, 'Learner was progressed to Reflection')
     elif request.method == "DELETE":
         Progress.objects.filter(id=progress.id).update(approved=None)

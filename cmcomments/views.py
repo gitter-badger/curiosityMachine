@@ -29,6 +29,11 @@ def comments(request, challenge_id, username, stage):
         video = Video.from_source_with_job(form.cleaned_data['video_filepicker_url']) if form.cleaned_data['video_filepicker_url'] else None
         image = Image.from_source_with_job(form.cleaned_data['picture_filepicker_url']) if form.cleaned_data['picture_filepicker_url'] else None
         comment = Comment(user=request.user, text=form.cleaned_data['text'], challenge_progress=progress, image=image, video=video, stage=stage.value, question_text=form.cleaned_data['question_text'])
+        profile = request.user.profile
+        if profile.is_mentor:
+            profile.deliver_mentor_responded_email()
+        else:
+            profile.deliver_student_responded_email()
         comment.save()
     #TODO: add some way to handle form.errors, for instance converting it into a JSON API
 
